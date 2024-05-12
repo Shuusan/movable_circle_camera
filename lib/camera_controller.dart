@@ -12,9 +12,9 @@ class CameraController extends GetxController {
   final cameraId = (-1).obs;
   final isInitialized = false.obs;
   Size? previewSize;
-  
+
   final mediaSettings = const MediaSettings(
-    resolutionPreset: ResolutionPreset.low,
+    resolutionPreset: ResolutionPreset.max,
     fps: 60,
     videoBitrate: 200000,
     audioBitrate: 32000,
@@ -25,9 +25,10 @@ class CameraController extends GetxController {
   StreamSubscription<CameraClosingEvent>? cameraClosingStreamSubscription;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    fetchCameras();
+    await fetchCameras();
+    await initializeCamera();
   }
 
   @override
