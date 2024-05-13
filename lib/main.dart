@@ -20,8 +20,7 @@ void main() async {
       title: "Shuusan - CircleCamera");
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.setResizable(false);
-    await windowManager.setPosition(const Offset(700, 455));
+    await windowManager.setResizable(true);
     await windowManager.show();
     await windowManager.focus();
   });

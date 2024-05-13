@@ -50,7 +50,8 @@ class CameraController extends GetxController {
         mCameraInfo = 'No available cameras';
       } else {
         mCameraIndex = cameraIndex.value % mCameras.length;
-        mCameraInfo = 'Found camera: ${mCameras[mCameraIndex].name.split("<")[0]}';
+        mCameraInfo =
+            'Found camera: ${mCameras[mCameraIndex].name.split("<")[0]}';
       }
     } on PlatformException catch (e) {
       mCameraInfo = 'Failed to get cameras: ${e.code}: ${e.message}';
@@ -79,12 +80,17 @@ class CameraController extends GetxController {
       );
 
       unawaited(errorStreamSubscription?.cancel());
-      errorStreamSubscription = CameraPlatform.instance.onCameraError(mCameraId).listen(onCameraError);
+      errorStreamSubscription = CameraPlatform.instance
+          .onCameraError(mCameraId)
+          .listen(onCameraError);
 
       unawaited(cameraClosingStreamSubscription?.cancel());
-      cameraClosingStreamSubscription = CameraPlatform.instance.onCameraClosing(mCameraId).listen(onCameraClosing);
+      cameraClosingStreamSubscription = CameraPlatform.instance
+          .onCameraClosing(mCameraId)
+          .listen(onCameraClosing);
 
-      final Future<CameraInitializedEvent> initialized = CameraPlatform.instance.onCameraInitialized(mCameraId).first;
+      final Future<CameraInitializedEvent> initialized =
+          CameraPlatform.instance.onCameraInitialized(mCameraId).first;
 
       await CameraPlatform.instance.initializeCamera(
         mCameraId,
@@ -109,7 +115,8 @@ class CameraController extends GetxController {
       cameraId.value = -1;
       cameraIndex.value = 0;
       previewSize = null;
-      cameraInfo.value = 'Failed to initialize camera: ${e.code}: ${e.description}';
+      cameraInfo.value =
+          'Failed to initialize camera: ${e.code}: ${e.description}';
     }
   }
 
@@ -122,7 +129,8 @@ class CameraController extends GetxController {
         previewSize = null;
         cameraInfo.value = 'Camera disposed';
       } on CameraException catch (e) {
-        cameraInfo.value = 'Failed to dispose camera: ${e.code}: ${e.description}';
+        cameraInfo.value =
+            'Failed to dispose camera: ${e.code}: ${e.description}';
       }
     }
   }
@@ -134,7 +142,7 @@ class CameraController extends GetxController {
   }
 
   void onCameraClosing(CameraClosingEvent event) {
-    Get.snackbar('Camera Closing', 'Camera is closing');
+    // Get.snackbar('Camera Closing', 'Camera is closing');
   }
 
   Future<void> switchCamera() async {
